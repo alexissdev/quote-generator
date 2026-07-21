@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+
+  --color-petrol-950: #0a1f26;
+  --color-petrol-900: #0f2a33;
+  --color-petrol-800: #163b46;
+  --color-petrol-700: #1e4d5c;
+  --color-petrol-600: #2a6577;
+  --color-petrol-500: #37808f;
+
+  --color-bone-100: #fbf7ee;
+  --color-bone-200: #f4ecd8;
+  --color-bone-300: #ead9b8;
+  --color-bone-400: #d9c295;
+
+  --color-rust-700: #7a2a15;
+  --color-rust-600: #9c3419;
+  --color-rust-500: #b8451f;
+  --color-rust-400: #cf5a2f;
+}
+
 body {
   margin: 0;
+  background-color: var(--color-petrol-950);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
 }
