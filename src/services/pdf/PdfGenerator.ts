@@ -20,6 +20,7 @@ const DEFAULT_SECTIONS: PdfSection[] = [
 
 export interface PdfGenerator {
   buildFileName(quote: Quote): string
+  buildBlob(quote: Quote): Blob
   download(quote: Quote): void
 }
 
@@ -43,6 +44,10 @@ export class JsPdfQuoteGenerator implements PdfGenerator {
   buildFileName(quote: Quote): string {
     const siteSlug = quote.site.trim().replace(/\s+/g, '_') || 'SinObra'
     return `Presupuesto_${siteSlug}_Braian_Costa_Construcciones.pdf`
+  }
+
+  buildBlob(quote: Quote): Blob {
+    return this.build(quote).output('blob')
   }
 
   download(quote: Quote): void {

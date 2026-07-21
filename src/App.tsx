@@ -6,7 +6,7 @@ import { useQuoteForm } from './hooks/useQuoteForm'
 import { useQuoteHistory } from './hooks/useQuoteHistory'
 import { useBackup } from './hooks/useBackup'
 import { pdfGenerator } from './services/pdf/PdfGenerator'
-import { whatsappShareService } from './services/share/WhatsappShareService'
+import { shareService } from './services/share/ShareService'
 import { buildWhatsappText } from './domain/formatters'
 import type { HistoryEntry } from './domain/types'
 
@@ -22,10 +22,15 @@ function App() {
     addEntry(form.quote)
   }
 
-  function handleShareWhatsapp() {
+  async function handleShareWhatsapp() {
     if (!form.isValid) return
 
-    whatsappShareService.shareText(buildWhatsappText(form.quote))
+    await shareService.shareQuote({
+      text: buildWhatsappText(form.quote),
+      pdfBlob: pdfGenerator.buildBlob(form.quote),
+      fileName: pdfGenerator.buildFileName(form.quote),
+    })
+    addEntry(form.quote)
   }
 
   function handleDuplicate(entry: HistoryEntry) {
@@ -47,7 +52,13 @@ function App() {
 
   return (
     <AppLayout
-      form={<QuoteForm form={form} onDownloadPdf={handleDownloadPdf} onShareWhatsapp={handleShareWhatsapp} />}
+      form={
+        <QuoteForm
+          form={form}
+          onDownloadPdf={handleDownloadPdf}
+          onShareWhatsapp={handleShareWhatsapp}
+        />
+      }
       preview={<QuotePreview quote={form.quote} />}
       history={
         <HistoryPanel

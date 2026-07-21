@@ -60,7 +60,7 @@ El archivo se descarga con el nombre `Presupuesto_<obra>_Braian_Costa_Construcci
 
 ### 4. Compartir por WhatsApp
 
-El botón **Compartir por WhatsApp** arma el mismo contenido del presupuesto como texto (con `*negrita*` en los puntos clave, tal como lo interpreta WhatsApp) y abre `wa.me` con el mensaje ya cargado, listo para elegir el contacto y enviar — sin necesidad de descargar el PDF primero.
+El botón **Compartir por WhatsApp** genera el PDF y abre la bandeja de compartir nativa del celular (Web Share API) con el archivo ya adjunto y un texto resumen — se elige WhatsApp (o cualquier otra app) y se envía el PDF real, sin pasar por la descarga manual. En navegadores que no soportan compartir archivos (por ejemplo, desktop), cae automáticamente al comportamiento anterior: abre `wa.me` con el texto del presupuesto precargado (ahí sí, sin el PDF adjunto, porque un link de WhatsApp no puede llevar un archivo).
 
 ### 5. Historial de presupuestos
 
@@ -164,7 +164,7 @@ src/
                                       pricing, footer, signature) y devuelve el Y donde
                                       sigue el contenido — agregar una sección nueva no
                                       requiere tocar las existentes
-    share/WhatsappShareService.ts  Arma el link de wa.me
+    share/ShareService.ts          Comparte el PDF vía Web Share API, con fallback a wa.me
     backup/BackupService.ts        Exporta/lee el archivo JSON de backup
 
   hooks/
